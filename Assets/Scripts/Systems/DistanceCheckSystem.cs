@@ -3,7 +3,7 @@ using UnityEngine;
 
 internal class DistanceCheckSystem : IEcsRunSystem
 {
-    private readonly EcsFilter<TakeableItemComponent, ModelComponent> _item = null;
+    private readonly EcsFilter<TakeableComponent, ModelComponent> _item = null;
     private readonly EcsFilter<ModelComponent, PlayerTag> _player = null;
     private readonly GameData _gameData = null;
 

@@ -34,5 +34,6 @@ internal class UISystem : IEcsRunSystem, IEcsInitSystem
             _stash.text = $"Stash: {_stashIndex}/40";
         }
     }
+
 }
 

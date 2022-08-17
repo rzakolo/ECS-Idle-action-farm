@@ -6,21 +6,21 @@ using DG.Tweening;
 public class BlockAnimation : MonoBehaviour
 {
     private Vector3 _baseScale;
-    Sequence sequence;
-    Sequence sequenceLoop;
+    private Sequence _sequence;
+    private Sequence _sequenceLoop;
     void Start()
     {
-        sequence = DOTween.Sequence();
-        sequenceLoop = DOTween.Sequence();
+        _sequence = DOTween.Sequence();
+        _sequenceLoop = DOTween.Sequence();
         _baseScale = transform.localScale;
         transform.localScale = Vector3.zero;
-        sequence.Append(transform.DOScale(_baseScale, 1));
-        sequenceLoop.Append(transform.DORotate(new Vector3(0, 270, 0), 1));
-        sequenceLoop.Join(transform.DOMoveY(1, 1));
-        sequenceLoop.SetLoops(-1, LoopType.Yoyo);
+        _sequence.Append(transform.DOScale(_baseScale, 1));
+        _sequenceLoop.Append(transform.DORotate(new Vector3(0, 270, 0), 1));
+        _sequenceLoop.Join(transform.DOMoveY(1, 1));
+        _sequenceLoop.SetLoops(-1, LoopType.Yoyo);
     }
     private void OnDestroy()
     {
-        sequenceLoop.Kill();
+        _sequenceLoop.Kill();
     }
 }

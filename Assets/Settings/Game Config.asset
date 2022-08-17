@@ -13,8 +13,12 @@ MonoBehaviour:
   m_Name: Game Config
   m_EditorClassIdentifier: 
   PickableDistance: 5
-  TakingTime: 0.3
+  TakingTime: 1.5
   StashSize: 40
   MoneyTakingAmount: 15
   GrassColor: {r: 0, g: 1, b: 0, a: 1}
   WheatColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  BaseGrowTime: 10
+  WheatPrefab: {fileID: 0}
+  GrassPrefab: {fileID: 0}
+  BrickPrefab: {fileID: 6363869867631109055, guid: ee3d51088cda9da478394926ecb75818, type: 3}

@@ -9,60 +9,66 @@ using UnityEngine.UI;
 public class GameStartup : MonoBehaviour
 {
     [SerializeField] private EcsUiEmitter _uiEmitter;
-    [SerializeField] private FloatingJoystick joystick;
-    [SerializeField] private GameData gameData;
-    private EcsWorld world;
-    private EcsSystems systems;
+    [SerializeField] private FloatingJoystick _joystick;
+    [SerializeField] private GameData _gameData;
+    [SerializeField] private PrefabFactory _prefabFactory;
+    private EcsWorld _world;
+    private EcsSystems _systems;
 
 
     private void Start()
     {
-        world = new EcsWorld();
-        systems = new EcsSystems(world);
+        _world = new EcsWorld();
+        _systems = new EcsSystems(_world);
 #if UNITY_EDITOR
-        Leopotam.Ecs.UnityIntegration.EcsWorldObserver.Create(world);
+        Leopotam.Ecs.UnityIntegration.EcsWorldObserver.Create(_world);
 #endif
-        systems.ConvertScene();
+        _systems.ConvertScene();
         AddSystems();
 
-        systems.Init();
+        _systems.Init();
 #if UNITY_EDITOR
-        Leopotam.Ecs.UnityIntegration.EcsSystemsObserver.Create(systems);
+        Leopotam.Ecs.UnityIntegration.EcsSystemsObserver.Create(_systems);
 #endif
     }
 
     private void Update()
     {
-        systems.Run();
+        _systems.Run();
     }
 
     private void AddSystems()
     {
 
-        systems.
+        _systems.
             Add(new PlayerInputSystem()).
             Add(new MoveSystem()).
             Add(new PlayerAnimationSystem()).
             Add(new RotationSystem()).
             //Add(new StashSystem()).
             Add(new DistanceCheckSystem()).
-            Add(new TakingItemSystem()).
             Add(new PrepareItemSystem()).
+            Add(new TakingItemSystem()).
             Add(new UISystem()).
+            Add(new GrowSystem()).
+            Add(new SpawnSystem()).
+            OneFrame<ReadyToSpawnEvent>().
+            OneFrame<BrickSpawnEvent>().
             InjectUi(_uiEmitter).
-            Inject(joystick).
-            Inject(gameData);
+            Inject(_joystick).
+            Inject(_gameData).
+            Inject(_prefabFactory);
 
     }
 
 
     private void OnDestroy()
     {
-        if (systems == null) return;
+        if (_systems == null) return;
 
-        systems.Destroy();
-        systems = null;
-        world.Destroy();
-        world = null;
+        _systems.Destroy();
+        _systems = null;
+        _world.Destroy();
+        _world = null;
     }
 }
