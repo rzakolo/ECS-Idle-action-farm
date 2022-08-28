@@ -21,6 +21,5 @@ public class ECSTrigger : MonoBehaviour
         if (!other.CompareTag(target)) return;
         _slice.enabled = true;
         _collider.enabled = false;
-        var components = _world.ComponentPools;
     }
 }

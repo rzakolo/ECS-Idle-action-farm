@@ -52,7 +52,10 @@ public class GameStartup : MonoBehaviour
             Add(new UISystem()).
             Add(new GrowSystem()).
             Add(new SpawnSystem()).
+            Add(new MoneySystem()).
+            Add(new GravitationSystem()).
             OneFrame<ReadyToSpawnEvent>().
+            OneFrame<SellEvent>().
             OneFrame<BrickSpawnEvent>().
             InjectUi(_uiEmitter).
             Inject(_joystick).

@@ -5,8 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 [Serializable]
-internal struct MoneyComponent
+public struct MoneyComponent
 {
     public int Money;
+    public bool ReadyToSell;
 }
 

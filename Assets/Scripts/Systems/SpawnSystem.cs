@@ -7,7 +7,7 @@ sealed class SpawnSystem : IEcsRunSystem
     readonly private PrefabFactory _prefabFactory;
     readonly private GameData _gameData;
     readonly private EcsFilter<HerbCompanent, ReadyToSpawnEvent> _herbFilter = null;
-    readonly private EcsFilter<ModelComponent, BrickSpawnEvent> _brickFilter = null;
+    readonly private EcsFilter<ModelComponent, BrickSpawnEvent, ColorComponent> _brickFilter = null;
     public void Run()
     {
         if (!_herbFilter.IsEmpty())
@@ -29,6 +29,10 @@ sealed class SpawnSystem : IEcsRunSystem
             {
                 ref var modelCompanent = ref _brickFilter.Get1(i);
                 ref var modelTransform = ref modelCompanent.ModelTransform;
+                ref var colorComponent = ref _brickFilter.Get3(i);
+                var renderer = _gameData.BrickPrefab.GetComponent<Renderer>();
+                var propertyId = Shader.PropertyToID("_BaseMap");
+                renderer.sharedMaterial.SetColor(propertyId, colorComponent.MaterialColor);
                 _prefabFactory.Spawn(_gameData.BrickPrefab, modelTransform.position, Quaternion.identity, null, EcsEntity.Null);
                 _brickFilter.GetEntity(i).Destroy();
             }

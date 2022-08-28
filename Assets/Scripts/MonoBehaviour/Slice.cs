@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using EzySlice;
 using DG.Tweening;
-using Zenject;
 using Leopotam.Ecs;
 using Voody.UniLeo;
 
@@ -34,19 +31,6 @@ public class Slice : MonoBehaviour
         ref var colorCompanent = ref entity.Get<ColorComponent>();
         colorCompanent.MaterialColor = Color.green;
         modelCompanent.ModelTransform = _slicedGO.transform;
-        RemoveHerb();
         Destroy(gameObject);
-    }
-    private void RemoveHerb()
-    {
-
-        //var data = gameObject.GetComponent<ConvertToEntity>();
-        //if (data.TryGetEntity().HasValue)
-        //{
-        //    var entity = data.TryGetEntity().Value;
-        //    ref var parentCompanent = ref entity.Get<ParentCompanent>();
-        //    ref var parentEntity = ref parentCompanent.ParentEntity;
-        //    parentEntity.Del<BlockHole>();
-        //}
     }
 }
