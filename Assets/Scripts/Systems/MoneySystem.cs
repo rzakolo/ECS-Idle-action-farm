@@ -3,7 +3,7 @@ using Leopotam.Ecs;
 
 public class MoneySystem : IEcsRunSystem
 {
-    private readonly EcsFilter<MoneyComponent, StashCompanent> _filter;
+    private readonly EcsFilter<MoneyComponent, StashComponent> _filter;
     private readonly EcsFilter<SellEvent> _filter2;
     private readonly GameData _gameData;
 

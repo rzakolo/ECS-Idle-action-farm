@@ -6,7 +6,7 @@ sealed class SpawnSystem : IEcsRunSystem
     readonly private EcsWorld _world = null;
     readonly private PrefabFactory _prefabFactory;
     readonly private GameData _gameData;
-    readonly private EcsFilter<HerbCompanent, ReadyToSpawnEvent> _herbFilter = null;
+    readonly private EcsFilter<HerbComponent, ReadyToSpawnEvent> _herbFilter = null;
     readonly private EcsFilter<ModelComponent, BrickSpawnEvent, ColorComponent> _brickFilter = null;
     public void Run()
     {
@@ -19,7 +19,6 @@ sealed class SpawnSystem : IEcsRunSystem
                 var herbTransform = herbCompanent.Position;
                 ref var entity = ref _herbFilter.GetEntity(i);
                 _prefabFactory.Spawn(goToSpawn, herbTransform.position, Quaternion.identity, null, entity);
-                //entity.Del<ReadyToSpawnCompanent>();
                 entity.Get<BlockHole>();
             }
         }

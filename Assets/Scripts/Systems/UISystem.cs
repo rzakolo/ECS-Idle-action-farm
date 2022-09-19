@@ -9,23 +9,17 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-internal class UISystem : IEcsRunSystem, IEcsInitSystem
+internal class UISystem : IEcsRunSystem
 {
     private EcsUiEmitter _ui = null;
     private EcsWorld _world = null;
-    private EcsFilter<StashCompanent> _filter;
+    private EcsFilter<StashComponent> _filter;
     private EcsFilter<MoneyComponent> _filter2;
     [EcsUiNamed("Stash")] private TextMeshProUGUI _stash;
     [EcsUiNamed("Money")] private TextMeshProUGUI _money;
 
     private int _stashIndex;
     private int _currentMoney;
-
-    public void Init()
-    {
-        //Debug.Log(_ui == null);
-        //var button = _ui.GetNamedObject("MyButton").GetComponent<Button>();
-    }
 
     public void Run()
     {

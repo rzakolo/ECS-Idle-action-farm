@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Game Config
   m_EditorClassIdentifier: 
   PickableDistance: 5
-  TakingTime: 1.5
+  TakingTime: 0.3
   StashSize: 40
   MoneyTakingAmount: 15
   GrassColor: {r: 0, g: 1, b: 0, a: 1}

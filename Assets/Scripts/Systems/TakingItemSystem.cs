@@ -1,11 +1,9 @@
-﻿using DG.Tweening;
-using Leopotam.Ecs;
+﻿using Leopotam.Ecs;
 using UnityEngine;
-using EzySlice;
 internal class TakingItemSystem : IEcsRunSystem, IEcsInitSystem
 {
     private readonly EcsFilter<TakeableComponent, ModelComponent, ColorComponent, TakingEvent> _item = null;
-    private readonly EcsFilter<StashCompanent, PlayerTag> _stash = null;
+    private readonly EcsFilter<StashComponent, PlayerTag> _stash = null;
     private readonly GameData _gameData = null;
     private float _takingTime;
     private TweenMove _tween;
@@ -26,13 +24,9 @@ internal class TakingItemSystem : IEcsRunSystem, IEcsInitSystem
                 ref var endTransform = ref takeableCompanent.EndTransform;
                 ref var entity = ref _item.GetEntity(i);
 
-                if (_tween.IsPlaying)
+                if (!_tween.IsPlaying)
                 {
-                    _tween.UptadeEndPositionAndRotation(endTransform.position, endTransform.rotation);
-                }
-                else
-                {
-                    _tween.Move(ref startTransform, ref endTransform, _takingTime);
+                    _tween.Init(ref startTransform, ref endTransform, _takingTime);
                 }
                 if (_tween.IsComplete)
                 {
@@ -43,10 +37,11 @@ internal class TakingItemSystem : IEcsRunSystem, IEcsInitSystem
                         stashComponent.stash[stashComponent.emptySlotIndex].SetActive(true);
                         stashComponent.emptySlotIndex++;
                     }
-                    var takeableGameObject = _item.Get2(i).ModelTransform.gameObject;
+                    var takeableGameObject = startTransform.gameObject;
                     GameObject.Destroy(takeableGameObject);
                     entity.Destroy();
                     _tween = new TweenMove();
+                    return;
                 }
             }
     }

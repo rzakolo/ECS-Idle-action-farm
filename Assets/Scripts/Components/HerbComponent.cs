@@ -3,7 +3,7 @@ using UnityEngine;
 using Leopotam.Ecs;
 
 [Serializable]
-public struct HerbCompanent
+public struct HerbComponent
 {
     public Transform Position;
     public bool IsPlanted;

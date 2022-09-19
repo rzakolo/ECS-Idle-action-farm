@@ -3,7 +3,7 @@ using UnityEngine;
 
 sealed class GrowSystem : IEcsRunSystem, IEcsInitSystem
 {
-    readonly private EcsFilter<HerbCompanent>.Exclude<BlockHole> _filter = null;
+    readonly private EcsFilter<HerbComponent>.Exclude<BlockHole> _filter = null;
     readonly private GameData _gameData;
 
     public void Init()

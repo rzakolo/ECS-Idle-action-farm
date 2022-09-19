@@ -15,12 +15,11 @@ public class PrefabFactory : MonoBehaviour
     public void Spawn(GameObject gameObject, Vector3 position, Quaternion quaternion, Transform parentTransform, EcsEntity parentEntity)
     {
         var entity = _world.NewEntity();
-        //ref var sliceComponent = ref entity.Get<ReadyToSliceTag>();
         ref var modelComponent = ref entity.Get<ModelComponent>();
-        ref var parentCompanent = ref entity.Get<ParentCompanent>();
+        //ref var parentCompanent = ref entity.Get<ParentComponent>();
 
         modelComponent.ModelTransform = gameObject.transform;
-        parentCompanent.ParentEntity = parentEntity;
+        //parentCompanent.ParentEntity = parentEntity;
 
         Instantiate(gameObject, position, quaternion, parentTransform);
     }

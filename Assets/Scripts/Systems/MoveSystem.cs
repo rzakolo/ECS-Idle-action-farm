@@ -19,7 +19,13 @@ sealed class MoveSystem : IEcsRunSystem
             ref var direction = ref directionComponent.Direction;
             ref var speed = ref movableComponent.Speed;
             ref var velocity = ref movableComponent.Velocity;
-            characterController.Move(speed * direction * Time.deltaTime);
+            ref var gravity = ref movableComponent.Gravity;
+            var move = speed * direction * Time.deltaTime;
+            if (!characterController.isGrounded)
+            {
+                move.y -= gravity * Time.deltaTime;
+            }
+            characterController.Move(move);
             velocity = characterController.velocity;
         }
 

@@ -1,10 +1,7 @@
 using UnityEngine;
 using Leopotam.Ecs;
 using Voody.UniLeo;
-using Zenject;
 using Leopotam.Ecs.Ui.Systems;
-using TMPro;
-using UnityEngine.UI;
 
 public class GameStartup : MonoBehaviour
 {
@@ -14,19 +11,23 @@ public class GameStartup : MonoBehaviour
     [SerializeField] private PrefabFactory _prefabFactory;
     private EcsWorld _world;
     private EcsSystems _systems;
+    //private EcsSystems _fixedRunSystem;
 
 
     private void Start()
     {
         _world = new EcsWorld();
         _systems = new EcsSystems(_world);
+        //_fixedRunSystem = new EcsSystems(_world);
 #if UNITY_EDITOR
         Leopotam.Ecs.UnityIntegration.EcsWorldObserver.Create(_world);
 #endif
         _systems.ConvertScene();
+        //_fixedRunSystem.ConvertScene();
         AddSystems();
-
+        //AddFixedSystems();
         _systems.Init();
+        //_fixedRunSystem.Init();
 #if UNITY_EDITOR
         Leopotam.Ecs.UnityIntegration.EcsSystemsObserver.Create(_systems);
 #endif
@@ -36,7 +37,15 @@ public class GameStartup : MonoBehaviour
     {
         _systems.Run();
     }
+    //private void FixedUpdate()
+    //{
+    //    _fixedRunSystem.Run();
+    //}
 
+    //private void AddFixedSystems()
+    //{
+    //    _fixedRunSystem.Add(new TakingItemSystem());
+    //}
     private void AddSystems()
     {
 
@@ -45,7 +54,6 @@ public class GameStartup : MonoBehaviour
             Add(new MoveSystem()).
             Add(new PlayerAnimationSystem()).
             Add(new RotationSystem()).
-            //Add(new StashSystem()).
             Add(new DistanceCheckSystem()).
             Add(new PrepareItemSystem()).
             Add(new TakingItemSystem()).
@@ -53,7 +61,6 @@ public class GameStartup : MonoBehaviour
             Add(new GrowSystem()).
             Add(new SpawnSystem()).
             Add(new MoneySystem()).
-            Add(new GravitationSystem()).
             OneFrame<ReadyToSpawnEvent>().
             OneFrame<SellEvent>().
             OneFrame<BrickSpawnEvent>().
